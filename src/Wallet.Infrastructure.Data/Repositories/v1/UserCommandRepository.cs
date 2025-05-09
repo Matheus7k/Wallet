@@ -10,6 +10,11 @@ public class UserCommandRepository(ContextDb context) : IUserCommandRepository
     public async Task<User?> GetUserByEmailAsync(string email) =>
         await context.Users.FirstOrDefaultAsync(x => x.Email == email);
     
+    public async Task<UserWallet> GetUserWalletByEmailAsync(string email) =>
+        (await context.Users.Include(u => u.UserWallet)
+            .Where(u => u.Email == email)
+            .FirstAsync()).UserWallet;
+    
     public async Task AddUserAsync(User user, UserWallet wallet)
     {
         await using var transaction = await context.Database.BeginTransactionAsync();
@@ -26,6 +31,26 @@ public class UserCommandRepository(ContextDb context) : IUserCommandRepository
             
             await context.SaveChangesAsync();
 
+            await transaction.CommitAsync();
+        }
+        catch
+        {
+            await transaction.RollbackAsync();
+        }
+    }
+    
+    public async Task UpdateUserWalletAsync(UserWallet wallet, WalletTransaction walletTransaction)
+    {
+        await using var transaction = await context.Database.BeginTransactionAsync();
+
+        try
+        {
+            context.Wallets.Update(wallet);
+            
+            context.WalletTransactions.Add(walletTransaction);
+            
+            await context.SaveChangesAsync();
+            
             await transaction.CommitAsync();
         }
         catch

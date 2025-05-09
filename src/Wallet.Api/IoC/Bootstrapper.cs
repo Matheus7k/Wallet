@@ -2,10 +2,12 @@ using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using Wallet.Api.Behaviors;
 using Wallet.Application.Commands.v1.Authenticate.PostAuthenticate;
+using Wallet.Application.Factories.v1;
 using Wallet.Application.Profiles.v1;
 using Wallet.Application.Services.v1;
 using Wallet.CrossCutting.Configuration.AppSettings;
 using Wallet.CrossCutting.Configuration.AppSettings.Models;
+using Wallet.Domain.Interfaces.v1.Factories;
 using Wallet.Domain.Interfaces.v1.Repositories;
 using Wallet.Domain.Interfaces.v1.Services;
 using Wallet.Infrastructure.Data.Command.Context.v1;
@@ -23,6 +25,7 @@ public static class Bootstrapper
         InjectAutoMapper(services);
         InjectCommands(services);
         InjectServices(services);
+        InjectFactories(services);
         InjectRepositories(services);
         InjectContext(services);
         
@@ -56,6 +59,9 @@ public static class Bootstrapper
         services.AddSingleton<ITokenService, TokenService>();
         services.AddSingleton<IPasswordEncryptorService, PasswordEncryptorService>();
     }
+    
+    private static void InjectFactories(this IServiceCollection services) =>
+        services.AddSingleton<IWalletTransactionFactory, WalletTransactionFactory>();
     
     private static void InjectRepositories(this IServiceCollection services)
     {

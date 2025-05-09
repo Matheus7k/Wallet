@@ -8,7 +8,7 @@ public sealed class User
 
     [JsonIgnore]
     public Guid AddressId { get; set; }
-
+    
     public string Name { get; set; } = null!;
     public string Email { get; set; } = null!;
     public string Password { get; set; } = null!;
@@ -16,4 +16,7 @@ public sealed class User
     public DateTime CreatedAt { get; set; }
     public DateTime UpdatedAt { get; set; }
     public Address Address { get; set; } = null!;
+    
+    [JsonIgnore]
+    public UserWallet UserWallet { get; set; } = null!;
 }

@@ -24,5 +24,10 @@ public class UserMap : IEntityTypeConfiguration<User>
             .WithOne()
             .HasForeignKey<User>(n => n.AddressId)
             .OnDelete(DeleteBehavior.Restrict);
+        
+        builder.HasOne(c => c.UserWallet)
+            .WithOne()
+            .HasForeignKey<UserWallet>(n => n.UserId)
+            .OnDelete(DeleteBehavior.Restrict);
     }
 }

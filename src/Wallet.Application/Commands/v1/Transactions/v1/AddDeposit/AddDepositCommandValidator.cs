@@ -1,0 +1,15 @@
+using FluentValidation;
+
+namespace Wallet.Application.Commands.v1.Transactions.v1.AddDeposit;
+
+public class AddDepositCommandValidator : AbstractValidator<AddDepositCommand>
+{
+    public AddDepositCommandValidator()
+    {
+        RuleFor(x => x.Amount)
+            .NotNull()
+            .WithMessage("a")
+            .GreaterThan(0)
+            .WithMessage("b");
+    }
+}

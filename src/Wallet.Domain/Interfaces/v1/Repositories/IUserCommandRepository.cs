@@ -6,4 +6,6 @@ public interface IUserCommandRepository
 {
     Task<User?> GetUserByEmailAsync(string email);
     Task AddUserAsync(User user, UserWallet wallet);
+    Task<UserWallet> GetUserWalletByEmailAsync(string email);
+    Task UpdateUserWalletAsync(UserWallet wallet, WalletTransaction walletTransaction);
 }
