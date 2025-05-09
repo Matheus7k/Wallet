@@ -8,10 +8,15 @@
 
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.0"/>
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="8.1.1" />
+        <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="8.1.1" />
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Controllers\" />
+      <ProjectReference Include="..\Wallet.Application\Wallet.Application.csproj" />
+      <ProjectReference Include="..\Wallet.CrossCutting.Configuration\Wallet.CrossCutting.Configuration.csproj" />
+      <ProjectReference Include="..\Wallet.Domain\Wallet.Domain.csproj" />
+      <ProjectReference Include="..\Wallet.Infrastructure.Data\Wallet.Infrastructure.Data.csproj" />
     </ItemGroup>
 
 </Project>

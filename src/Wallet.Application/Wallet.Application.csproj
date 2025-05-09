@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Wallet.CrossCutting.Configuration\Wallet.CrossCutting.Configuration.csproj" />
+      <ProjectReference Include="..\Wallet.CrossCutting.Exception\Wallet.CrossCutting.Exception.csproj" />
+      <ProjectReference Include="..\Wallet.Domain\Wallet.Domain.csproj" />
+    </ItemGroup>
+
+</Project>
