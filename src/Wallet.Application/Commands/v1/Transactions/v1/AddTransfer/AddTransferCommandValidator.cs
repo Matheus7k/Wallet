@@ -8,14 +8,14 @@ public class AddTransferCommandValidator : AbstractValidator<AddTransferCommand>
     {
         RuleFor(x => x.ToEmail)
             .NotEmpty()
-            .WithMessage("a")
+            .WithMessage("Email_NotEmpty")
             .EmailAddress()
-            .WithMessage("b");
+            .WithMessage("Email_Valid");
         
         RuleFor(x => x.Amount)
             .NotNull()
-            .WithMessage("c")
+            .WithMessage("Amount_NotEmpty")
             .GreaterThan(0)
-            .WithMessage("d");
+            .WithMessage("Amount_MinValue");
     }
 }

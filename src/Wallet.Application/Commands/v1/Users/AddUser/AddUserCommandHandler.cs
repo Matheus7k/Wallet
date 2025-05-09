@@ -34,7 +34,7 @@ public class AddUserCommandHandler(
         var user = await userCommandRepository.GetUserByEmailAsync(email);
 
         if (user is not null)
-            throw new BadRequestException("Email já cadastrado.");
+            throw new ConflictException("Email_AlreadyExist");
     }
 
     private async Task AddUserAsync(AddUserCommand request)

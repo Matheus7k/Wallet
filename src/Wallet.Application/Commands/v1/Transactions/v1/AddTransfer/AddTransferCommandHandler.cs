@@ -37,7 +37,7 @@ public class AddTransferCommandHandler(
         var user = await userCommandRepository.GetUserByEmailAsync(toEmail);
         
         if (user is null)
-            throw new BadRequestException("Conta de destino inválida ou inexistente.");
+            throw new NotFoundException("UserTransfer_NotFound");
     }
     
     private async Task<(UserWallet fromWallet, UserWallet toWallet)> GetUserWalletsAsync(AddTransferCommand request)
@@ -50,14 +50,11 @@ public class AddTransferCommandHandler(
     
     private static void ValidateWallets(UserWallet fromWallet, UserWallet toWallet, decimal amount)
     {
-        if (!fromWallet.IsActive)
-            throw new BadRequestException("Sua carteira está desativada, não é possivel realizar transferencias.");
-        
-        if (!toWallet.IsActive)
-            throw new BadRequestException("A carteira de destino está desativada, não é possivel realizar transferencias.");
-        
+        if (!fromWallet.IsActive || !toWallet.IsActive)
+            throw new BadRequestException("WalletTransfer_Inactive");
+
         if (fromWallet.Balance < amount)
-            throw new ConflictException("Não possui fundos suficientes para realizar a transferencia.");
+            throw new ConflictException("WalletTransfer_Balance");
     }
 
     private async Task RealizeTransferAsync(UserWallet fromWallet, UserWallet toWallet, AddTransferCommand request)

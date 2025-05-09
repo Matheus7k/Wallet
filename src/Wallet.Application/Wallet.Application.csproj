@@ -12,4 +12,8 @@
       <ProjectReference Include="..\Wallet.Domain\Wallet.Domain.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Queries\v1\Transactions\" />
+    </ItemGroup>
+
 </Project>

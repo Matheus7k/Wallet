@@ -1,0 +1,83 @@
+{
+  "Name_NotEmpty": {
+    "Message": "Campo 'Nome' não pode ser vazio."
+  },
+  "Name_MinMaxLength": {
+    "Message": "O Node deve conter entre 2 e 255 caracteres."
+  },
+  "Email_NotEmpty": {
+    "Message": "Campo 'Email' não pode ser vazio."
+  },
+  "Email_Valid": {
+    "Message": "O Email deve ser válido."
+  },
+  "Email_MaxLength": {
+    "Message": "O Email deve conter até 255 caracteres."
+  },
+  "Password_NotEmpty": {
+    "Message": "Campo 'Nome' não pode ser vazio."
+  },
+  "Password_MinMaxLength": {
+    "Message": "A Senha deve conter entre 8 e 50 caracteres."
+  },
+  "Password_Valid": {
+    "Message": "A Senha deve conter pelo menos 1 caractere minúsculo, 1 caractere maiúsculo, 1 número e 1 caractere especial."
+  },
+  "BirthDate_NotEmpty": {
+    "Message": "Campo 'Data de nascimento' não pode ser vazio."
+  },
+  "BirthDate_MinAge": {
+    "Message": "Usuário deve ter no mínimo 12 anos."
+  },
+  "Street_NotEmpty": {
+    "Message": "Campo 'Rua' não pode ser vazio."
+  },
+  "Street_MaxLength": {
+    "Message": "Campo 'Rua' deve conter até 255 caracteres."
+  },
+  "Number_NotEmpty": {
+    "Message": "Campo 'Número' não pode ser vazio."
+  },
+  "Number_MinValue": {
+    "Message": "Campo 'Número' deve ser maior ou igual a zero."
+  },
+  "City_NotEmpty": {
+    "Message": "Campo 'Cidade' não pode ser vazio."
+  },
+  "City_MaxLength": {
+    "Message": "Campo 'Cidade' deve conter até 100 caracteres."
+  },
+  "Country_NotEmpty": {
+    "Message": "Campo 'País' não pode ser vazio."
+  },
+  "Country_MaxLength": {
+    "Message": "Campo 'País' deve conter até 100 caracteres."
+  },
+  "Amount_NotEmpty": {
+    "Message": "Campo 'Quantidade' não pode ser vazio."
+  },
+  "Amount_MinValue": {
+    "Message": "Campo 'Quantidade' deve ser maior que zero."
+  },
+  "User_NotFound": {
+    "Message": "Usuário não encontrado."
+  },
+  "Password_Invalid": {
+    "Message": "Senha inválida."
+  },
+  "WalletDeposit_Inactive": {
+    "Message": "A carteira está desativada, não é possivel realizar um depósito."
+  },
+  "UserTransfer_NotFound": {
+    "Message": "Conta de destino inválida ou inexistente."
+  },
+  "WalletTransfer_Inactive": {
+    "Message": "A carteide de origem ou destino está desativada, não é possível realizar a transferência."
+  },
+  "WalletTransfer_Balance": {
+    "Message": "Não possui fundos suficientes para realizar a transferência."
+  },
+  "Email_AlreadyExist": {
+    "Message": "O Email informado já está cadastrado."
+  }
+}

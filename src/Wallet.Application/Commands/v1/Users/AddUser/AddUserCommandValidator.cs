@@ -8,54 +8,54 @@ public class AddUserCommandValidator : AbstractValidator<AddUserCommand>
     {
         RuleFor(x => x.Name)
             .NotEmpty()
-            .WithMessage("a")
+            .WithMessage("Name_NotEmpty")
             .Length(2, 255)
-            .WithMessage("b");
+            .WithMessage("Name_MinMaxLength");
         
         RuleFor(x => x.Email)
             .NotEmpty()
-            .WithMessage("c")
+            .WithMessage("Email_NotEmpty")
             .EmailAddress()
-            .WithMessage("d")
+            .WithMessage("Email_Valid")
             .MaximumLength(255)
-            .WithMessage("e");
+            .WithMessage("Email_MaxLength");
         
         RuleFor(x => x.Password)
             .NotEmpty()
-            .WithMessage("f")
+            .WithMessage("Password_NotEmpty")
             .Length(8, 50)
-            .WithMessage("g")
-            .Matches(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]{8,}$")
-            .WithMessage("h");
+            .WithMessage("Password_MinMaxLength")
+            .Matches(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]")
+            .WithMessage("Password_Valid");
         
         RuleFor(x => x.BirthDate)
             .NotEmpty()
-            .WithMessage("i")
-            .LessThanOrEqualTo(DateTime.UtcNow.AddYears(-12))
-            .WithMessage("j");
+            .WithMessage("BirthDate_NotEmpty")
+            .LessThanOrEqualTo(DateTime.UtcNow.AddYears(-12).Date)
+            .WithMessage("BirthDate_MinAge");
 
         RuleFor(x => x.Address.Street)
             .NotEmpty()
-            .WithMessage("k")
+            .WithMessage("Street_NotEmpty")
             .MaximumLength(255)
-            .WithMessage("l");
+            .WithMessage("Street_MaxLength");
         
         RuleFor(x => x.Address.Number)
             .NotNull()
-            .WithMessage("m")
+            .WithMessage("Number_NotEmpty")
             .GreaterThanOrEqualTo(0)
-            .WithMessage("n");
+            .WithMessage("Number_MinValue");
         
         RuleFor(x => x.Address.City)
             .NotEmpty()
-            .WithMessage("o")
+            .WithMessage("City_NotEmpty")
             .MaximumLength(100)
-            .WithMessage("p");
+            .WithMessage("City_MaxLength");
         
         RuleFor(x => x.Address.Country)
             .NotEmpty()
-            .WithMessage("q")
+            .WithMessage("Country_NotEmpty")
             .MaximumLength(100)
-            .WithMessage("r");
+            .WithMessage("Country_MaxLength");
     }
 }

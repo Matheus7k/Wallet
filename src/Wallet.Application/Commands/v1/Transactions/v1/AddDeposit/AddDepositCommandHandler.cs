@@ -35,7 +35,7 @@ public class AddDepositCommandHandler(
     private static void ValidateUserWallet(UserWallet userWallet)
     {
         if (!userWallet.IsActive)
-            throw new BadRequestException("A carteira está desativada, não é possivel realizar um deposito.");
+            throw new BadRequestException("WalletDeposit_Inactive");
     }
 
     private async Task UpdateUserWalletAsync(UserWallet userWallet, decimal amount, WalletTransaction walletTransaction)

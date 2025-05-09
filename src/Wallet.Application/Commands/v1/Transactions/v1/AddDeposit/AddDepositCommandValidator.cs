@@ -8,8 +8,8 @@ public class AddDepositCommandValidator : AbstractValidator<AddDepositCommand>
     {
         RuleFor(x => x.Amount)
             .NotNull()
-            .WithMessage("a")
+            .WithMessage("Amount_NotEmpty")
             .GreaterThan(0)
-            .WithMessage("b");
+            .WithMessage("Amount_MinValue");
     }
 }

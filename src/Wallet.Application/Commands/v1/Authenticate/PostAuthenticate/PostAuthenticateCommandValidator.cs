@@ -8,10 +8,10 @@ public class PostAuthenticateCommandValidator : AbstractValidator<PostAuthentica
     {
         RuleFor(x => x.Email)
             .NotEmpty()
-            .WithMessage("Campo 'Email' não pode ser vazio.");
+            .WithMessage("Email_NotEmpty");
 
         RuleFor(x => x.Password)
             .NotEmpty()
-            .WithMessage("Campo 'Senha' não pode ser vazio.");
+            .WithMessage("Password_NotEmpty");
     }
 }

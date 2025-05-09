@@ -7,6 +7,7 @@ using Wallet.Application.Profiles.v1;
 using Wallet.Application.Services.v1;
 using Wallet.CrossCutting.Configuration.AppSettings;
 using Wallet.CrossCutting.Configuration.AppSettings.Models;
+using Wallet.CrossCutting.Configuration.ResourceCatalog;
 using Wallet.Domain.Interfaces.v1.Factories;
 using Wallet.Domain.Interfaces.v1.Repositories;
 using Wallet.Domain.Interfaces.v1.Services;
@@ -28,6 +29,7 @@ public static class Bootstrapper
         InjectFactories(services);
         InjectRepositories(services);
         InjectContext(services);
+        InjectResourceCatalog(services);
         
         return services;
     }
@@ -67,7 +69,7 @@ public static class Bootstrapper
     {
         services.AddScoped<IUserCommandRepository, UserCommandRepository>();
     }
-
+    
     private static void InjectContext(this IServiceCollection services)
     {
         services.AddDbContext<ContextDb>(opt =>
@@ -81,4 +83,7 @@ public static class Bootstrapper
             opt.UseNpgsql(connectionString);
         });
     }
+
+    private static void InjectResourceCatalog(this IServiceCollection services) =>
+        services.AddSingleton<ResourceCatalog>();
 }

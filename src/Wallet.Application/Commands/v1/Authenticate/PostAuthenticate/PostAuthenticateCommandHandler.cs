@@ -37,9 +37,9 @@ public sealed class PostAuthenticateCommandHandler(
         var user = await userCommandRepository.GetUserByEmailAsync(request.Email);
 
         if (user is null)
-            throw new BadRequestException("Usuário não encontrado.");
+            throw new NotFoundException("User_NotFound");
         
         if (user.Password != passwordEncryptorService.Encrypt(request.Password))
-            throw new BadRequestException("Senha inválida.");
+            throw new BadRequestException("Password_Invalid");
     }
 }
