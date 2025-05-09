@@ -47,8 +47,8 @@ public class AddUserCommandHandler(
         {
             UserId = user.Id,
             Balance = 0.00m,
-            Currency = "BRL",
-            IsActive = true
+            IsActive = true,
+            CreatedAt = DateTime.UtcNow
         };
         
         await userCommandRepository.AddUserAsync(user, wallet);
