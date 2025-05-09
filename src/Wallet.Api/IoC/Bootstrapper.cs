@@ -68,6 +68,7 @@ public static class Bootstrapper
     private static void InjectRepositories(this IServiceCollection services)
     {
         services.AddScoped<IUserCommandRepository, UserCommandRepository>();
+        services.AddScoped<IUserQueryRepository, UserQueryRepository>();
     }
     
     private static void InjectContext(this IServiceCollection services)
