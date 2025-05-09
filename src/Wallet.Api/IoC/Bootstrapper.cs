@@ -2,6 +2,7 @@ using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using Wallet.Api.Behaviors;
 using Wallet.Application.Commands.v1.Authenticate.PostAuthenticate;
+using Wallet.Application.Profiles.v1;
 using Wallet.Application.Services.v1;
 using Wallet.CrossCutting.Configuration.AppSettings;
 using Wallet.CrossCutting.Configuration.AppSettings.Models;
@@ -19,6 +20,7 @@ public static class Bootstrapper
         InjectAppSettings(configuration);
         InjectValidator(services);
         InjectMediator(services);
+        InjectAutoMapper(services);
         InjectCommands(services);
         InjectServices(services);
         InjectRepositories(services);
@@ -42,6 +44,9 @@ public static class Bootstrapper
             config.RegisterServicesFromAssemblyContaining<PostAuthenticateCommand>();
             config.AddOpenBehavior(typeof(ValidationBehavior<,>));
         });
+    
+    private static void InjectAutoMapper(this IServiceCollection services) =>
+        services.AddAutoMapper(typeof(UserProfile).Assembly);
     
     private static void InjectCommands(this IServiceCollection services) =>
         services.AddSingleton(typeof(PostAuthenticateCommandHandler).Assembly);

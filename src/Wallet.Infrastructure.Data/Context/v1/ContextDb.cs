@@ -7,6 +7,7 @@ public class ContextDb(DbContextOptions options) : DbContext(options)
 {
     public DbSet<User> Users { get; set; }
     public DbSet<Address> Addresses { get; set; }
+    public DbSet<UserWallet> Wallets { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
