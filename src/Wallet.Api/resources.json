@@ -79,5 +79,8 @@
   },
   "Email_AlreadyExist": {
     "Message": "O Email informado já está cadastrado."
+  },
+  "Postgres_Error": {
+    "Message": "Ocorreu um erro durante a transação, por favor entre em contato com o suporte."
   }
 }

@@ -1,6 +1,7 @@
 using System.Net.Mime;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using Npgsql;
 using Wallet.CrossCutting.Configuration.ResourceCatalog;
 using Wallet.CrossCutting.Exception;
 
@@ -32,6 +33,7 @@ public class GlobalExceptionHandler(
         {
             FluentValidation.ValidationException ex => HandleValidationException(ex),
             BaseException ex => HandleBaseException(ex),
+            PostgresException => HandlePostgresException(),
             _ => HandleUnknownException(exception)
         };
     
@@ -61,5 +63,14 @@ public class GlobalExceptionHandler(
             Type = "https://datatracker.ietf.org/doc/html/rfc7231#section-6.6.1",
             Status = StatusCodes.Status500InternalServerError,
             Detail = resourceCatalog.GetMessage(ex.Message)
+        };
+    
+    private ProblemDetails HandlePostgresException() =>
+        new()
+        {
+            Title = "Internal Server Error",
+            Type = "https://datatracker.ietf.org/doc/html/rfc7231#section-6.6.1",
+            Status = StatusCodes.Status500InternalServerError,
+            Detail = resourceCatalog.GetMessage("Postgres_Error")
         };
 }

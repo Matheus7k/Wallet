@@ -1,3 +1,5 @@
+using System.Text.Json.Serialization;
+
 namespace Wallet.Domain.Entities.v1;
 
 public class UserWallet

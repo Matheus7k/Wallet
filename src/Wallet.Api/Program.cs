@@ -5,12 +5,18 @@ using Microsoft.OpenApi.Models;
 using Wallet.Api.Exceptions;
 using Wallet.Api.IoC;
 using Wallet.CrossCutting.Configuration.AppSettings;
+using Wallet.Domain.Converters;
+using Wallet.Domain.Enums.v1;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.Converters.Add(new EnumDescriptionConverter<StatusType>());
+    });
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services
     .AddOpenApi()
@@ -91,4 +97,4 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.Run();
+await app.RunAsync();

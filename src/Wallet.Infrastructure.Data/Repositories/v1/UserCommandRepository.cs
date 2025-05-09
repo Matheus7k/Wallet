@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Npgsql;
 using Wallet.Domain.Entities.v1;
 using Wallet.Domain.Interfaces.v1.Repositories;
 using Wallet.Domain.ValueObjects.v1;
@@ -37,6 +38,7 @@ public class UserCommandRepository(ContextDb context) : IUserCommandRepository
         catch
         {
             await transaction.RollbackAsync();
+            throw;
         }
     }
     
@@ -57,6 +59,7 @@ public class UserCommandRepository(ContextDb context) : IUserCommandRepository
         catch
         {
             await transaction.RollbackAsync();
+            throw;
         }
     }
     
@@ -81,6 +84,7 @@ public class UserCommandRepository(ContextDb context) : IUserCommandRepository
         catch
         {
             await transaction.RollbackAsync();
+            throw;
         }
     }
 }
