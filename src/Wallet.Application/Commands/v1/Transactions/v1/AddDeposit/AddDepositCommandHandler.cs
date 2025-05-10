@@ -17,9 +17,7 @@ public class AddDepositCommandHandler(
     {
         try
         {
-            var userId = await userCommandRepository.GetUserIdByEmailAsync(request.Email);
-            
-            var wallet = await userCommandRepository.GetWalletByIdAsync(userId);
+            var wallet = await GetUserWalletAsync(request.Email);
 
             ValidateUserWallet(wallet);
 
@@ -34,6 +32,13 @@ public class AddDepositCommandHandler(
         }
     }
 
+    private async Task<UserWallet> GetUserWalletAsync(string email)
+    {
+        var userId = await userCommandRepository.GetUserIdByEmailAsync(email);
+            
+        return await userCommandRepository.GetWalletByIdAsync(userId);
+    }
+    
     private static void ValidateUserWallet(UserWallet userWallet)
     {
         if (!userWallet.IsActive)

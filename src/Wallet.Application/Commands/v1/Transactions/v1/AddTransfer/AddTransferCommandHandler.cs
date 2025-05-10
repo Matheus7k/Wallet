@@ -18,13 +18,13 @@ public class AddTransferCommandHandler(
     {
         try
         {
-            await ValidateToUserAsync(request.ToEmail);
+            await EnsureDestinationUserExists(request.ToEmail);
 
-            var (fromWallet, toWallet) = await GetUserWalletsAsync(request);
+            var (fromWallet, toWallet) = await GetTransferWallets(request);
 
-            ValidateWallets(fromWallet, toWallet, request.Amount);
+            ValidateTransfer(fromWallet, toWallet, request.Amount);
 
-            await RealizeTransferAsync(fromWallet, toWallet, request);
+            await ExecuteTransfer(fromWallet, toWallet, request);
         }
         catch (Exception ex)
         {
@@ -33,7 +33,8 @@ public class AddTransferCommandHandler(
         }
     }
 
-    private async Task ValidateToUserAsync(string toEmail)
+    private async Task EnsureDestinationUserExists
+        (string toEmail)
     {
         var user = await userCommandRepository.GetUserByEmailAsync(toEmail);
         
@@ -41,18 +42,18 @@ public class AddTransferCommandHandler(
             throw new NotFoundException("UserTransfer_NotFound");
     }
     
-    private async Task<(UserWallet fromWallet, UserWallet toWallet)> GetUserWalletsAsync(AddTransferCommand request)
+    private async Task<(UserWallet fromWallet, UserWallet toWallet)> GetTransferWallets(AddTransferCommand request)
     {
-        var fromWalletId = await userCommandRepository.GetUserIdByEmailAsync(request.FromEmail);
-        var toWalletId = await userCommandRepository.GetUserIdByEmailAsync(request.ToEmail);
+        var fromId = await userCommandRepository.GetUserIdByEmailAsync(request.FromEmail);
+        var toId = await userCommandRepository.GetUserIdByEmailAsync(request.ToEmail);
         
-        var fromWallet = await userCommandRepository.GetWalletByIdAsync(fromWalletId);
-        var toWallet = await userCommandRepository.GetWalletByIdAsync(toWalletId);
+        var fromWallet = await userCommandRepository.GetWalletByIdAsync(fromId);
+        var toWallet = await userCommandRepository.GetWalletByIdAsync(toId);
         
         return (fromWallet, toWallet);
     }
     
-    private static void ValidateWallets(UserWallet fromWallet, UserWallet toWallet, decimal amount)
+    private static void ValidateTransfer(UserWallet fromWallet, UserWallet toWallet, decimal amount)
     {
         if (!fromWallet.IsActive || !toWallet.IsActive)
             throw new BadRequestException("WalletTransfer_Inactive");
@@ -61,7 +62,7 @@ public class AddTransferCommandHandler(
             throw new ConflictException("WalletTransfer_Balance");
     }
 
-    private async Task RealizeTransferAsync(UserWallet fromWallet, UserWallet toWallet, AddTransferCommand request)
+    private async Task ExecuteTransfer(UserWallet fromWallet, UserWallet toWallet, AddTransferCommand request)
     {
         fromWallet.Balance -= request.Amount;
         toWallet.Balance += request.Amount;
@@ -71,15 +72,12 @@ public class AddTransferCommandHandler(
         fromWallet.UpdatedAt = now;
         toWallet.UpdatedAt = now;
 
-        var walletTransactionVo = CreateWalletTransactionValueObject(fromWallet.Id, request.FromEmail, toWallet.Id, request.ToEmail, request.Amount);
+        var transactionVo = new WalletTransactionValueObject(fromWallet.Id, request.FromEmail, request.Amount, toWallet.Id, request.ToEmail);
         
-        var walletTransaction = CreateWalletTransaction(walletTransactionVo);
+        var transaction = CreateWalletTransaction(transactionVo);
         
-        await userCommandRepository.UpdateTransferWalletsAsync(new(fromWallet, walletTransaction));
+        await userCommandRepository.UpdateTransferWalletsAsync(new(fromWallet, transaction));
     }
-
-    private static WalletTransactionValueObject CreateWalletTransactionValueObject(Guid fromWalletId, string fromEmail, Guid toWalletId, string toEmail, decimal amount) =>
-        new(fromWalletId, fromEmail, amount, toWalletId, toEmail);
     
     private WalletTransaction CreateWalletTransaction(WalletTransactionValueObject walletTransactionValueObject) =>
         walletTransactionFactory.CreateWalletTransaction(TransactionType.Transfer, walletTransactionValueObject);
