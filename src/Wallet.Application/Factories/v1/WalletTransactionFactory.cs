@@ -10,31 +10,20 @@ public class WalletTransactionFactory : IWalletTransactionFactory
     public WalletTransaction CreateWalletTransaction(TransactionType transaction, WalletTransactionValueObject walletTransaction) =>
         transaction switch
         {
-            TransactionType.Deposit => GenerateDepositTransaction(walletTransaction),
-            _ => GenerateTransferTransaction(walletTransaction)
-        };
-
-    private static WalletTransaction GenerateDepositTransaction(WalletTransactionValueObject walletTransaction) =>
-        new()
-        {
-            WalletId = walletTransaction.WalletId,
-            From = walletTransaction.FromEmail,
-            To = walletTransaction.FromEmail,
-            Amount = walletTransaction.Amount,
-            Transaction = nameof(TransactionType.Deposit),
-            Status = StatusType.Pending,
-            CreatedAt = DateTime.UtcNow
+            TransactionType.Deposit => GenerateTransaction(TransactionType.Deposit, StatusType.Pending, walletTransaction),
+            _ => GenerateTransaction(TransactionType.Transfer, StatusType.Completed, walletTransaction)
         };
     
-    private static WalletTransaction GenerateTransferTransaction(WalletTransactionValueObject walletTransaction) =>
+    private static WalletTransaction GenerateTransaction(TransactionType transactionType, StatusType status, WalletTransactionValueObject walletTransaction) =>
         new()
         {
-            WalletId = walletTransaction.WalletId,
-            From = walletTransaction.FromEmail,
-            To = walletTransaction.ToEmail,
+            FromWalletId = walletTransaction.FromWalletId,
+            FromEmail = walletTransaction.FromEmail,
+            ToWalletId = walletTransaction.ToWalletId ?? walletTransaction.FromWalletId,
+            ToEmail = walletTransaction.ToEmail ?? walletTransaction.FromEmail,
             Amount = walletTransaction.Amount,
-            Transaction = nameof(TransactionType.Transfer),
-            Status = StatusType.Completed,
+            Transaction = transactionType.ToString(),
+            Status = status,
             CreatedAt = DateTime.UtcNow
         };
 }

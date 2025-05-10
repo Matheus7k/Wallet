@@ -1,5 +1,4 @@
 using Microsoft.EntityFrameworkCore;
-using Npgsql;
 using Wallet.Domain.Entities.v1;
 using Wallet.Domain.Interfaces.v1.Repositories;
 using Wallet.Domain.ValueObjects.v1;
@@ -12,11 +11,10 @@ public class UserCommandRepository(ContextDb context) : IUserCommandRepository
     public async Task<User?> GetUserByEmailAsync(string email) =>
         await context.Users.FirstOrDefaultAsync(x => x.Email == email);
     
-    public async Task<UserWallet> GetUserWalletByEmailAsync(string email) =>
-        (await context.Users.Include(u => u.UserWallet)
-            .Where(u => u.Email == email)
-            .FirstAsync()).UserWallet;
+    public async Task<Guid> GetUserIdByEmailAsync(string email) =>
         (await context.Users.FirstOrDefaultAsync(x => x.Email == email))!.Id;
+    
+    public async Task<UserWallet> GetWalletByIdAsync(Guid id) =>
         (await context.Wallets.FirstOrDefaultAsync(x => x.UserId == id))!;
     
     public async Task AddUserAsync(User user, UserWallet wallet)
@@ -74,10 +72,6 @@ public class UserCommandRepository(ContextDb context) : IUserCommandRepository
             context.Wallets.Update(walletTransfer.FromWallet);
             
             context.WalletTransactions.Add(walletTransfer.FromWalletTransaction);
-            
-            context.Wallets.Update(walletTransfer.ToWallet);
-            
-            context.WalletTransactions.Add(walletTransfer.ToWalletTransaction);
             
             await context.SaveChangesAsync();
             

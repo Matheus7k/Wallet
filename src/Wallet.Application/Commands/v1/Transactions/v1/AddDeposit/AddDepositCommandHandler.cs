@@ -23,7 +23,7 @@ public class AddDepositCommandHandler(
 
             ValidateUserWallet(wallet);
 
-            var walletTransaction = walletTransactionFactory.CreateWalletTransaction(TransactionType.Deposit, new(wallet.Id, request.Email, request.Email, request.Amount));
+            var walletTransaction = walletTransactionFactory.CreateWalletTransaction(TransactionType.Deposit, new(wallet.Id, request.Email, request.Amount));
 
             await UpdateUserWalletAsync(wallet, request.Amount, walletTransaction);
         }

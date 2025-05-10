@@ -5,6 +5,7 @@ using Wallet.Domain.Entities.v1;
 using Wallet.Domain.Enums.v1;
 using Wallet.Domain.Interfaces.v1.Factories;
 using Wallet.Domain.Interfaces.v1.Repositories;
+using Wallet.Domain.ValueObjects.v1;
 
 namespace Wallet.Application.Commands.v1.Transactions.v1.AddTransfer;
 
@@ -69,13 +70,17 @@ public class AddTransferCommandHandler(
 
         fromWallet.UpdatedAt = now;
         toWallet.UpdatedAt = now;
+
+        var walletTransactionVo = CreateWalletTransactionValueObject(fromWallet.Id, request.FromEmail, toWallet.Id, request.ToEmail, request.Amount);
         
-        var fromWalletTransaction = CreateWalletTransaction(fromWallet.Id, request.FromEmail, request.ToEmail, request.Amount);
-        var toWalletTransaction = CreateWalletTransaction(toWallet.Id, request.FromEmail, request.ToEmail, request.Amount);
+        var walletTransaction = CreateWalletTransaction(walletTransactionVo);
         
-        await userCommandRepository.UpdateTransferWalletsAsync(new(fromWallet, fromWalletTransaction, toWallet, toWalletTransaction));
+        await userCommandRepository.UpdateTransferWalletsAsync(new(fromWallet, walletTransaction));
     }
+
+    private static WalletTransactionValueObject CreateWalletTransactionValueObject(Guid fromWalletId, string fromEmail, Guid toWalletId, string toEmail, decimal amount) =>
+        new(fromWalletId, fromEmail, amount, toWalletId, toEmail);
     
-    private WalletTransaction CreateWalletTransaction(Guid walletId, string fromEmail, string toEmail, decimal amount) =>
-        walletTransactionFactory.CreateWalletTransaction(TransactionType.Transfer, new(walletId, fromEmail, toEmail, amount));
+    private WalletTransaction CreateWalletTransaction(WalletTransactionValueObject walletTransactionValueObject) =>
+        walletTransactionFactory.CreateWalletTransaction(TransactionType.Transfer, walletTransactionValueObject);
 }

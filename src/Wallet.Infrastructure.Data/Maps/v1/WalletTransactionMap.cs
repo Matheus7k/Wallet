@@ -11,11 +11,16 @@ public class WalletTransactionMap : IEntityTypeConfiguration<WalletTransaction>
         builder.ToTable("WalletTransactions");
         
         builder.Property(x => x.Id).ValueGeneratedOnAdd();
-        builder.Property(x => x.From).IsRequired();
-        builder.Property(x => x.To).IsRequired();
-        builder.Property(x => x.Amount).IsRequired();
+        builder.Property(x => x.FromWalletId).IsRequired();
+        builder.Property(x => x.FromEmail).IsRequired();
+        builder.Property(x => x.ToWalletId).IsRequired();
+        builder.Property(x => x.ToEmail).IsRequired();
+        builder.Property(x => x.Amount).IsRequired().HasColumnType("decimal(18,2)");
         builder.Property(x => x.Transaction).IsRequired();
         builder.Property(x => x.Status).IsRequired();
-        builder.Property(x => x.CreatedAt);
+        builder.Property(x => x.CreatedAt).IsRequired();
+        
+        builder.HasIndex(x => x.Id);
+        builder.HasIndex(x => x.CreatedAt);
     }
 }
