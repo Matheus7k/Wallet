@@ -42,8 +42,11 @@ public class AddTransferCommandHandler(
     
     private async Task<(UserWallet fromWallet, UserWallet toWallet)> GetUserWalletsAsync(AddTransferCommand request)
     {
-        var fromWallet = await userCommandRepository.GetUserWalletByEmailAsync(request.FromEmail);
-        var toWallet = await userCommandRepository.GetUserWalletByEmailAsync(request.ToEmail);
+        var fromWalletId = await userCommandRepository.GetUserIdByEmailAsync(request.FromEmail);
+        var toWalletId = await userCommandRepository.GetUserIdByEmailAsync(request.ToEmail);
+        
+        var fromWallet = await userCommandRepository.GetWalletByIdAsync(fromWalletId);
+        var toWallet = await userCommandRepository.GetWalletByIdAsync(toWalletId);
         
         return (fromWallet, toWallet);
     }

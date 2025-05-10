@@ -17,7 +17,9 @@ public class AddDepositCommandHandler(
     {
         try
         {
-            var wallet = await userCommandRepository.GetUserWalletByEmailAsync(request.Email);
+            var userId = await userCommandRepository.GetUserIdByEmailAsync(request.Email);
+            
+            var wallet = await userCommandRepository.GetWalletByIdAsync(userId);
 
             ValidateUserWallet(wallet);
 

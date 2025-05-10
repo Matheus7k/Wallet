@@ -16,6 +16,8 @@ public class UserCommandRepository(ContextDb context) : IUserCommandRepository
         (await context.Users.Include(u => u.UserWallet)
             .Where(u => u.Email == email)
             .FirstAsync()).UserWallet;
+        (await context.Users.FirstOrDefaultAsync(x => x.Email == email))!.Id;
+        (await context.Wallets.FirstOrDefaultAsync(x => x.UserId == id))!;
     
     public async Task AddUserAsync(User user, UserWallet wallet)
     {
