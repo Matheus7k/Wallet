@@ -1,6 +1,6 @@
 using FluentValidation;
 
-namespace Wallet.Application.Commands.v1.Transactions.v1.AddTransfer;
+namespace Wallet.Application.Commands.v1.Transactions.AddTransfer;
 
 public class AddTransferCommandValidator : AbstractValidator<AddTransferCommand>
 {

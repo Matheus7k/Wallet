@@ -7,7 +7,7 @@ using Wallet.Domain.Interfaces.v1.Factories;
 using Wallet.Domain.Interfaces.v1.Repositories;
 using Wallet.Domain.ValueObjects.v1;
 
-namespace Wallet.Application.Commands.v1.Transactions.v1.AddTransfer;
+namespace Wallet.Application.Commands.v1.Transactions.AddTransfer;
 
 public class AddTransferCommandHandler(
     IUserCommandRepository userCommandRepository,

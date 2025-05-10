@@ -1,7 +1,7 @@
 using System.Text.Json.Serialization;
 using MediatR;
 
-namespace Wallet.Application.Commands.v1.Transactions.v1.AddTransfer;
+namespace Wallet.Application.Commands.v1.Transactions.AddTransfer;
 
 public record AddTransferCommand : IRequest
 {

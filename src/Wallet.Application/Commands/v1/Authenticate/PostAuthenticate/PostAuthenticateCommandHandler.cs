@@ -1,6 +1,6 @@
 using MediatR;
 using Microsoft.Extensions.Logging;
-using Wallet.Application.Commands.v1.Transactions.v1.AddTransfer;
+using Wallet.Application.Commands.v1.Transactions.AddTransfer;
 using Wallet.CrossCutting.Exception;
 using Wallet.Domain.Interfaces.v1.Repositories;
 using Wallet.Domain.Interfaces.v1.Services;

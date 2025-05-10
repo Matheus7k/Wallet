@@ -1,8 +1,8 @@
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Wallet.Application.Commands.v1.Transactions.v1.AddDeposit;
-using Wallet.Application.Commands.v1.Transactions.v1.AddTransfer;
+using Wallet.Application.Commands.v1.Transactions.AddDeposit;
+using Wallet.Application.Commands.v1.Transactions.AddTransfer;
 using Wallet.Application.Queries.v1.Transactions.GetBalance;
 using Wallet.Application.Queries.v1.Transactions.GetTransactions;
 
