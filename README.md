@@ -45,7 +45,7 @@ Para rodar a aplicação localmente, siga os passos abaixo:
         docker run -p 5432:5432 -e POSTGRES_PASSWORD=postgres postgres:16
         ```
 
-3. Acesse o banco de dados e execute os scripts localizados em em `deployment/scripts`
+3. Acesse o banco de dados e execute os scripts localizados em `deployment/scripts`
 
 4. Abra o projeto na sua IDE preferida e execute o projeto.
 
