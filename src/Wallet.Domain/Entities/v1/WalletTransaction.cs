@@ -5,9 +5,10 @@ namespace Wallet.Domain.Entities.v1;
 public class WalletTransaction
 {
     public Guid Id { get; set; }
-    public Guid WalletId { get; set; }
-    public string From { get; set; } = null!;
-    public string To { get; set; } = null!;
+    public Guid FromWalletId { get; set; }
+    public string FromEmail { get; set; } = null!;
+    public Guid ToWalletId { get; set; }
+    public string ToEmail { get; set; } = null!;
     public decimal Amount { get; set; }
     public string Transaction { get; set; } = null!;
     public StatusType Status { get; set; }

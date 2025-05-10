@@ -11,7 +11,12 @@ public class WalletMap : IEntityTypeConfiguration<UserWallet>
         builder.ToTable("Wallets");
         
         builder.Property(x => x.Id).ValueGeneratedOnAdd();
-        builder.Property(x => x.Balance).IsRequired();
+        builder.Property(x => x.UserId).IsRequired();
+        builder.Property(x => x.Balance).IsRequired().HasColumnType("decimal(18,2)");
         builder.Property(x => x.IsActive).IsRequired();
+        builder.Property(x => x.CreatedAt).IsRequired();
+
+        builder.HasIndex(x => x.Id);
+        builder.HasIndex(x => x.UserId);
     }
 }
