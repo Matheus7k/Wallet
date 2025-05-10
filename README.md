@@ -10,8 +10,10 @@ API desenvolvida com .NET 9 para gerenciamento de carteiras digitais, permitindo
 - AutoMapper
 - FluentValidation
 - MediatR
+- .NET Core Native DI
 - JWT
 - EntityFramework
+- PostgresSQL
 - MSTest
 - Moq
 
@@ -23,6 +25,14 @@ API desenvolvida com .NET 9 para gerenciamento de carteiras digitais, permitindo
 * Adicionar saldo à carteira
 * Criar uma transferência entre usuários (carteiras)
 * Listar transferências realizadas por um usuário, com filtro opcional por período de data
+
+## 🏗️ Padrões / Princípios
+
+ - CQRS
+ - Repository Pattern
+ - Factory Pattern
+ - SOLID
+ - Clean Code
 
 ## 🚀 Execução do projeto
 
