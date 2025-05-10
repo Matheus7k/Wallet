@@ -4,12 +4,12 @@ using Wallet.Application.Commands.v1.Transactions.v1.AddTransfer;
 using Wallet.CrossCutting.Exception;
 using Wallet.Domain.Interfaces.v1.Repositories;
 using Wallet.Domain.Interfaces.v1.Services;
+using static BCrypt.Net.BCrypt;
 
 namespace Wallet.Application.Commands.v1.Authenticate.PostAuthenticate;
 
 public sealed class PostAuthenticateCommandHandler(
     IUserCommandRepository userCommandRepository,
-    IPasswordEncryptorService passwordEncryptorService,
     ITokenService tokenService,
     ILogger<PostAuthenticateCommandHandler> logger) 
     : IRequestHandler<PostAuthenticateCommand, PostAuthenticateCommandResponse>
@@ -39,7 +39,7 @@ public sealed class PostAuthenticateCommandHandler(
         if (user is null)
             throw new NotFoundException("User_NotFound");
         
-        if (user.Password != passwordEncryptorService.Encrypt(request.Password))
+        if (!Verify(request.Password, user.Password))
             throw new BadRequestException("Password_Invalid");
     }
 }

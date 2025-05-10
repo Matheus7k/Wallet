@@ -56,11 +56,8 @@ public static class Bootstrapper
     private static void InjectCommands(this IServiceCollection services) =>
         services.AddSingleton(typeof(PostAuthenticateCommandHandler).Assembly);
 
-    private static void InjectServices(this IServiceCollection services)
-    {
+    private static void InjectServices(this IServiceCollection services) =>
         services.AddSingleton<ITokenService, TokenService>();
-        services.AddSingleton<IPasswordEncryptorService, PasswordEncryptorService>();
-    }
     
     private static void InjectFactories(this IServiceCollection services) =>
         services.AddSingleton<IWalletTransactionFactory, WalletTransactionFactory>();
