@@ -37,8 +37,7 @@ public static class Bootstrapper
     private static void InjectAppSettings(IConfiguration configuration) =>
         AppSettings.Initialize(
             configuration.GetSection("Database").Get<DatabaseSettings>(), 
-            configuration.GetSection("Jwt").Get<JwtSettings>(),
-            configuration.GetSection("PasswordHash").Get<PasswordHashSettings>());
+            configuration.GetSection("Jwt").Get<JwtSettings>());
     
     private static void InjectValidator(this IServiceCollection services) =>
         services.AddValidatorsFromAssemblyContaining<PostAuthenticateCommandValidator>();
