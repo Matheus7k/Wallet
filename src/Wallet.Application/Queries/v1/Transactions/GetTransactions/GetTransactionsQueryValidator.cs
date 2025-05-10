@@ -1,6 +1,6 @@
 using FluentValidation;
 
-namespace Wallet.Application.Queries.v1.Transactions;
+namespace Wallet.Application.Queries.v1.Transactions.GetTransactions;
 
 public class GetTransactionsQueryValidator : AbstractValidator<GetTransactionsQuery>
 {

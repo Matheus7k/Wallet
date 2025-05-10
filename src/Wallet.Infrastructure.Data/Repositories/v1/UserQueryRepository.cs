@@ -25,8 +25,8 @@ public class UserQueryRepository(ContextDb context) : IUserQueryRepository
         
         return (await sentTransactionsQuery.ToListAsync(), await receivedTransactionsQuery.ToListAsync());
     }
-
-    private async Task<UserWallet> GetUserWalletByEmailAsync(string email) =>
+    
+    public async Task<UserWallet> GetUserWalletByEmailAsync(string email) =>
         (await context.Users.Include(u => u.UserWallet)
             .Where(u => u.Email == email)
             .FirstAsync()).UserWallet;

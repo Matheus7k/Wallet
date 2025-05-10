@@ -1,7 +1,7 @@
 using System.Text.Json.Serialization;
 using MediatR;
 
-namespace Wallet.Application.Queries.v1.Transactions;
+namespace Wallet.Application.Queries.v1.Transactions.GetTransactions;
 
 public record GetTransactionsQuery : IRequest<GetTransactionsQueryResponse>
 {

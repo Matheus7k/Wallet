@@ -2,7 +2,7 @@ using MediatR;
 using Microsoft.Extensions.Logging;
 using Wallet.Domain.Interfaces.v1.Repositories;
 
-namespace Wallet.Application.Queries.v1.Transactions;
+namespace Wallet.Application.Queries.v1.Transactions.GetTransactions;
 
 public class GetTransactionsQueryHandler(
     IUserQueryRepository userQueryRepository,
@@ -12,7 +12,7 @@ public class GetTransactionsQueryHandler(
     {
         try
         {
-            var (sentTransactions, receivedTransactions ) = await userQueryRepository.GetTransactionsAsync(request.Email, request.StartDate, request.EndDate);
+            var (sentTransactions, receivedTransactions) = await userQueryRepository.GetTransactionsAsync(request.Email, request.StartDate, request.EndDate);
 
             return new GetTransactionsQueryResponse(sentTransactions, receivedTransactions);
         }

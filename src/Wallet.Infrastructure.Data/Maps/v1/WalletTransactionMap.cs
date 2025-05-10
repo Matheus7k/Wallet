@@ -20,7 +20,8 @@ public class WalletTransactionMap : IEntityTypeConfiguration<WalletTransaction>
         builder.Property(x => x.Status).IsRequired();
         builder.Property(x => x.CreatedAt).IsRequired();
         
-        builder.HasIndex(x => x.Id);
+        builder.HasIndex(x => x.FromWalletId);
+        builder.HasIndex(x => x.ToWalletId);
         builder.HasIndex(x => x.CreatedAt);
     }
 }
