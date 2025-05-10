@@ -81,6 +81,18 @@
     "Message": "O Email informado já está cadastrado."
   },
   "Postgres_Error": {
-    "Message": "Ocorreu um erro durante a transação, por favor entre em contato com o suporte."
+    "Message": "Ocorreu um erro durante o processamento, por favor entre em contato com o suporte."
+  },
+  "StartDate_NotNull": {
+    "Message": "Campo 'Data Início' é necessário quando informado 'Data Fim'."
+  },
+  "StartDate_MaxValue": {
+    "Message": "O campo 'Data Início' deve ser menor que o campo 'Data Fim'."
+  },
+  "EndDate_NotNull": {
+    "Message": "Campo 'Data Fim' é necessário quando informado 'Data Início'."
+  },
+  "EndDate_MaxValue": {
+    "Message": "O campo 'Data Fim' deve ser menor ou igual a data atual."
   }
 }

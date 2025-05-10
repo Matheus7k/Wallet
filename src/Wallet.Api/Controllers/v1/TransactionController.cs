@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Wallet.Application.Commands.v1.Transactions.v1.AddDeposit;
 using Wallet.Application.Commands.v1.Transactions.v1.AddTransfer;
+using Wallet.Application.Queries.v1.Transactions;
 
 namespace Wallet.Api.Controllers.v1;
 
@@ -39,4 +40,13 @@ public class TransactionController(IMediator mediator) : Controller
         
         return Created();
     }
+
+    [HttpGet]
+    [ActionName("GetTransactions")]
+    [Authorize]
+    [ProducesResponseType(StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    public async Task<GetTransactionsQueryResponse> GetTransactions([FromQuery] GetTransactionsQuery query) =>
+        await mediator.Send(query.SetEmail(User.Identity!.Name!));
 }
