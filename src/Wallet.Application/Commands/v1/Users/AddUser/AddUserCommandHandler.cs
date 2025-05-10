@@ -4,7 +4,6 @@ using Microsoft.Extensions.Logging;
 using Wallet.CrossCutting.Exception;
 using Wallet.Domain.Entities.v1;
 using Wallet.Domain.Interfaces.v1.Repositories;
-using static BCrypt.Net.BCrypt;
 
 namespace Wallet.Application.Commands.v1.Users.AddUser;
 
@@ -12,9 +11,7 @@ public class AddUserCommandHandler(
     IUserCommandRepository userCommandRepository,
     IMapper mapper,
     ILogger<AddUserCommandHandler> logger) : IRequestHandler<AddUserCommand>
-{
-    private const int WorkFactor = 11;
-    
+{ 
     public async Task Handle(AddUserCommand request, CancellationToken cancellationToken)
     {
         try
@@ -41,8 +38,6 @@ public class AddUserCommandHandler(
     private async Task AddUserAsync(AddUserCommand request)
     {
         var user = mapper.Map<User>(request);
-        
-        user.Password = HashPassword(request.Password, WorkFactor);
 
         var wallet = new UserWallet
         {

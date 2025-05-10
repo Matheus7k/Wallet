@@ -74,11 +74,8 @@ public class AddTransferCommandHandler(
 
         var transactionVo = new WalletTransactionValueObject(fromWallet.Id, request.FromEmail, request.Amount, toWallet.Id, request.ToEmail);
         
-        var transaction = CreateWalletTransaction(transactionVo);
+        var transaction = walletTransactionFactory.CreateWalletTransaction(TransactionType.Transfer, transactionVo);
         
         await userCommandRepository.UpdateTransferWalletsAsync(new(fromWallet, transaction));
     }
-    
-    private WalletTransaction CreateWalletTransaction(WalletTransactionValueObject walletTransactionValueObject) =>
-        walletTransactionFactory.CreateWalletTransaction(TransactionType.Transfer, walletTransactionValueObject);
 }
