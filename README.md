@@ -47,7 +47,10 @@ Para rodar a aplicação localmente, siga os passos abaixo:
 
 3. Acesse o banco de dados e execute os scripts localizados em `deployment/scripts`
 
-4. Abra o projeto na sua IDE preferida e execute o projeto.
+4. Abra o projeto na sua IDE preferida e execute o projeto, ou na raiz da solução execute:
+    ```
+    dotnet run --project .\Wallet.Api\Wallet.Api.csproj
+    ```
 
 5. Você terá acesso ao Swagger da aplicação através do link: `http://localhost:5065/swagger/index.html`
 
