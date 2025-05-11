@@ -12,10 +12,10 @@ public class AuthenticationController(IMediator mediator) : Controller
     [HttpPost]
     [ActionName("Authenticate")]
     [AllowAnonymous]
-    [ProducesResponseType(StatusCodes.Status201Created)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> PostAuthenticateAsync([FromBody] PostAuthenticateCommand command) =>
-        Ok(await mediator.Send(command));
+    [ProducesResponseType(typeof(PostAuthenticateCommandResponse), StatusCodes.Status201Created)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
+    public async Task<PostAuthenticateCommandResponse> PostAuthenticateAsync([FromBody] PostAuthenticateCommand command) =>
+        await mediator.Send(command);
 }

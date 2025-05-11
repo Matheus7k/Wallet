@@ -16,9 +16,9 @@ public class TransactionController(IMediator mediator) : Controller
     [Authorize]
     [Route("deposit")]
     [ProducesResponseType(StatusCodes.Status201Created)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> AddDepositAsync([FromBody] AddDepositCommand command)
     {
         await mediator.Send(command.SetEmail(User.Identity!.Name!));
@@ -30,10 +30,10 @@ public class TransactionController(IMediator mediator) : Controller
     [ActionName("CreateTransfer")]
     [Authorize]
     [ProducesResponseType(StatusCodes.Status201Created)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    [ProducesResponseType(StatusCodes.Status409Conflict)]
-    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status409Conflict)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
     [Route("transfer")]
     public async Task<IActionResult> AddTransferAsync([FromBody] AddTransferCommand command)
     {
@@ -45,10 +45,10 @@ public class TransactionController(IMediator mediator) : Controller
     [HttpGet]
     [ActionName("GetTransactions")]
     [Authorize]
-    [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    [ProducesResponseType(typeof(GetTransactionsQueryResponse), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
     public async Task<GetTransactionsQueryResponse> GetTransactionsAsync([FromQuery] GetTransactionsQuery query) =>
         await mediator.Send(query.SetEmail(User.Identity!.Name!));
     
@@ -56,9 +56,9 @@ public class TransactionController(IMediator mediator) : Controller
     [ActionName("GetBalance")]
     [Authorize]
     [Route("balance")]
-    [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    [ProducesResponseType(typeof(GetBalanceQueryResponse), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
     public async Task<GetBalanceQueryResponse> GetBalanceAsync() =>
         await mediator.Send(new GetBalanceQuery(User.Identity!.Name!));
 }
