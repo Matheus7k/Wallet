@@ -12,9 +12,12 @@ public class GetTransactionsQueryHandler(
     {
         try
         {
-            var (sentTransactions, receivedTransactions) = await userQueryRepository.GetTransactionsAsync(request.Email, request.StartDate, request.EndDate);
+            var totalRows = await userQueryRepository.GetTotalRowsAsync(request.Email);
+            
+            var (sentTransactions, receivedTransactions) = 
+                await userQueryRepository.GetPaginatedTransactionsAsync(new(request.Email, request.StartDate, request.EndDate, request.Page, request.PageSize));
 
-            return new GetTransactionsQueryResponse(sentTransactions, receivedTransactions);
+            return new GetTransactionsQueryResponse(totalRows, request.Page, sentTransactions, receivedTransactions);
         }
         catch (Exception ex)
         {

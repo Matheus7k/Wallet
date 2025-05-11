@@ -94,5 +94,11 @@
   },
   "EndDate_MaxValue": {
     "Message": "O campo 'Data Fim' deve ser menor ou igual a data atual."
+  },
+  "Page_MinValue": {
+    "Message": "O campo 'Página' deve ser maior ou igual a zero."
+  },
+  "PageSize_MinMaxValue": {
+    "Message": "O campo 'Tamanho de Página' deve ser entre 10 e 50."
   }
 }

@@ -23,5 +23,13 @@ public class GetTransactionsQueryValidator : AbstractValidator<GetTransactionsQu
         RuleFor(x => x.EndDate)
             .LessThanOrEqualTo(x => DateTime.UtcNow.AddDays(1).AddTicks(-1))
             .WithMessage("EndDate_MaxValue");
+        
+        RuleFor(x => x.Page)
+            .GreaterThanOrEqualTo(0)
+            .WithMessage("Page_MinValue");
+        
+        RuleFor(x => x.PageSize)
+            .InclusiveBetween(10, 50)
+            .WithMessage("PageSize_MinMaxValue");
     }
 }
